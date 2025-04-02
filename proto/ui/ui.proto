@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ui;
+
+option go_package = "ui-service/proto/ui";
+
+message RecommendationRequest {
+    string device_id = 1;
+    string recommendation_data = 2; 
+}
+
+message RecommendationResponse {
+    bool received = 1; 
+}
+
+service UIService {
+    rpc DisplayRecommendation(RecommendationRequest) returns (RecommendationResponse);
+} 

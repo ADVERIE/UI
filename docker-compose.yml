@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ui-service
+    ports:
+      - "50053:50053"  # gRPC port
+      - "8080:8080"    # HTTP port
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - adverie-network
+
+networks:
+  adverie-network:
+    external: true 
